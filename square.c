@@ -72,7 +72,7 @@ int main() {
   float n = 0;
   printf("\n Enter number");
   scanf("%f", &n);
-  printf("\n %f is answer", (n*n* parameter->weight)+parameter->baise);
+  printf("\n %f is answer\n\n", (n*n* parameter->weight)+parameter->baise);
   
   return 0;
 }

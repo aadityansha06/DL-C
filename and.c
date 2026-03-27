@@ -1,8 +1,16 @@
 
 
 /*
-                                 And Gate neural netwrok 
+                                 And Gate neural netwrok
                       compile it with gcc and_gate.c -o and-gate -lm
+
+                            trained weight-1 15.663549
+                                    weight-2 15.663549
+                                    bais -23.658016
+
+                                hypothesis
+                        y=sigmoid(weight*input+bais)
+
 */
 
 #include <stdio.h>
@@ -23,8 +31,6 @@ typedef struct para {
 float bias_sum = 0, weight1_sum = 0, weight2_sum = 0;
 float rand_float() { return (float)rand() / (float)RAND_MAX; }
 
-
-
 float sigmoid(float x) { return 1.0 / (1.0 + exp(-x)); }
 
 int main() {
@@ -36,7 +42,7 @@ int main() {
   parameter->weight_1 = rand_float() * 10.0f;
   parameter->weight_2 = rand_float() * 10.0f;
   parameter->learn_rate = 1e-1;
- 
+
   printf("\n sno.\texpected\tpredicted\t weight\t weight_gradient\t");
   float weight_gradient_1 = 0;
   float weight_gradient_2 = 0;
@@ -66,21 +72,20 @@ int main() {
     parameter->weight_1 -= parameter->learn_rate * weight_gradient_1;
     parameter->weight_2 -= parameter->learn_rate * weight_gradient_2;
   }
-
+  printf("\nFinal output\n W-1\t%f\nW-2\t%f\nBias\t%f", parameter->weight_1,
+         parameter->weight_2, parameter->bias);
   float x1 = 0, x2 = 0;
-    int ch=1;
-  while (ch!=0) {
+  int ch = 1;
+  while (ch != 0) {
 
+    printf("\n Enter two  number");
+    scanf("%f %f", &x1, &x2);
+    printf("\n %f is answer\n",
+           sigmoid((x1 * parameter->weight_1) + (x2 * parameter->weight_2) +
+                   parameter->bias));
 
-  printf("\n Enter two  number");
-  scanf("%f %f", &x1, &x2);
-  printf("\n %f is answer",
-         sigmoid((x1 * parameter->weight_1) + (x2 * parameter->weight_2) +
-                 parameter->bias));
-
-  printf("\n\nDo u want to exit? 0 for yes and 1 for no\t\n");
-  scanf("%d",&ch);
-
-}
+    printf("\n\nDo u want to exit? 0 for yes and 1 for no\t\n");
+    scanf("%d", &ch);
+  }
   return 0;
 }
