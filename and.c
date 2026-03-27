@@ -1,9 +1,8 @@
-                                                
-
 
 
 /*
-                                                And Gate
+                                                And Gate neural netwrok 
+                                                compile it with gcc and_gate.c -o and-gate -lm
 */
 
 #include <stdio.h>
@@ -12,7 +11,7 @@
 #include <math.h>
 #define epoch 300000
 #define data_set 4
-int data[][3] = {{1, 1, 1}, {1, 0, 0}, {0, 0, 0},{0,1,0}};
+int data[][3] = {{1, 1, 1}, {1, 0, 0}, {0, 0, 0}, {0, 1, 0}};
 
 typedef struct para {
   float input;
@@ -24,11 +23,9 @@ typedef struct para {
 float bias_sum = 0, weight1_sum = 0, weight2_sum = 0;
 float rand_float() { return (float)rand() / (float)RAND_MAX; }
 
-//void perceptron(para *parameter) {}
+// void perceptron(para *parameter) {}
 
-float sigmoid(float x) {
-    return 1.0 / (1.0 + exp(-x));
-}
+float sigmoid(float x) { return 1.0 / (1.0 + exp(-x)); }
 
 int main() {
   para para1;
@@ -56,8 +53,8 @@ int main() {
     weight2_sum = 0;
     float y_cap = 0;
     for (int i = 0; i < data_set; i++) {
-      y_cap = sigmoid( (data[i][0] * parameter->weight_1) +
-              (data[i][1] * parameter->weight_2) + parameter->bias );
+      y_cap = sigmoid((data[i][0] * parameter->weight_1) +
+                      (data[i][1] * parameter->weight_2) + parameter->bias);
       bias_sum += data[i][2] - y_cap;
       weight1_sum += (data[i][2] - y_cap) * data[i][0];
       weight2_sum += (data[i][2] - y_cap) * data[i][1];
@@ -76,10 +73,12 @@ int main() {
     parameter->weight_2 -= parameter->learn_rate * weight_gradient_2;
   }
 
-   float x1 = 0,x2=0;
-   printf("\n Enter two  number");
-   scanf("%f %f", &x1,&x2);
-   printf("\n %f is answer",sigmoid ((x1 * parameter->weight_1) + (x2 * parameter->weight_2) + parameter->bias ));
-   
+  float x1 = 0, x2 = 0;
+  printf("\n Enter two  number");
+  scanf("%f %f", &x1, &x2);
+  printf("\n %f is answer",
+         sigmoid((x1 * parameter->weight_1) + (x2 * parameter->weight_2) +
+                 parameter->bias));
+
   return 0;
 }
