@@ -1,14 +1,18 @@
 /*
-                        Stochastic-gradient-descent
-                        For a single input Data-set
+                            predict a square                
+                        trained weight	1.000000
+                                bais  -0.000000
+                        
+                                hypothesis
+                        (y=weight*input^2+bais)
 */
 
 #include <stdio.h>
 #include <stdlib.h>
 
-#define epoch 1800
+#define epoch 180000
 #define data_set 6
-int data[][2] = {{1, 1},{2,2},{3,3},{4,4},{5,5},{6,6}};
+int data[][2] = {{1, 1},{2,4},{3,9},{4,16},{5,25},{6,36}};
 
 
 typedef struct para {
@@ -33,14 +37,9 @@ int main() {
   parameter->baise = 1.0;
   parameter->weight = rand_float() * 10.0f;
   parameter->learn_rate = 1e-2;
-  /* large the learning rate like 1e-2 = 10^-2 = 0.01 ; 1e-3=10^-3= 0.001
-   * Change weght by large amount
-   * since largere will be the cost*l_rate vaule
-   * small learning rate change weight by very small amount
-   * like 1e-5 = 0.0005 very small chnage in weight
-   */
-    printf("\n sno.\texpected\tpredicted\t weight\t weight_gradient\t");    
-   float weight_gradient=0;
+ 
+    printf("\n sno.\texpected\tpredicted\t weight\t weight_gradient\tBias gradient\n");    
+   float weight_gradient=0, baise_gradient=0 ;
   for (int j = 0; j < epoch; j++) {
    
   
@@ -48,13 +47,16 @@ int main() {
      weight_sum=0;
      float y_cap=0;
   for (int i = 0; i < data_set; i++) {
-     y_cap = (data[i][0] * parameter->weight) + parameter->baise;
-    baise_sum+=data[i][1] - y_cap;
-    weight_sum += baise_sum*data[i][0];
-    printf("%d\t%d\t%f\t%f\t%f\n",j, data[i][1], y_cap, parameter->weight, weight_gradient);
+      // y = wx+c -> for lnear output
+      //  y = wx^2+c -> for quadratic output
+      //  since y or prediation depdens on x 
+     y_cap = (data[i][0] * data[i][0] * parameter->weight) + parameter->baise;
+    baise_sum+=data[i][1] - y_cap; 
+    weight_sum += (data[i][1] - y_cap)*data[i][0];
+    printf("%d\t%d\t%f\t%f\t%f\t%f\n",j, data[i][1], y_cap, parameter->weight, weight_gradient,baise_gradient);
   }
     //baise cost
-    float baise_gradient = (baise_sum*2)/data_set;
+ baise_gradient   = (baise_sum*-2)/data_set;
     // baise update
     parameter->baise -= parameter->learn_rate*baise_gradient;
     
@@ -66,11 +68,11 @@ int main() {
 
    }
 
-
- /* float n = 0;
+ printf("\n final output\n weight\t%f\nbais\t%f",parameter->weight,parameter->baise);
+  float n = 0;
   printf("\n Enter number");
   scanf("%f", &n);
-  printf("\n %f is answer", n * parameter->weight);
-  */
+  printf("\n %f is answer", (n*n* parameter->weight)+parameter->baise);
+  
   return 0;
 }
