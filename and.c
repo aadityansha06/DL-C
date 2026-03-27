@@ -1,12 +1,12 @@
 
 
 /*
-                                 And Gate neural netwrok
-                      compile it with gcc and_gate.c -o and-gate -lm
+                         And Gate neural netwrok
+               compile it with gcc and_gate.c -o and-gate -lm
 
-                            trained weight-1 15.663549
-                                    weight-2 15.663549
-                                    bais -23.658016
+                        trained weight-1 15.663549
+                                weight-2 15.663549
+                                bais -23.658016
 
                                 hypothesis
                         y=sigmoid((w-1*i-1+w-2*i-2)+bais)
