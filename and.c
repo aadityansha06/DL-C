@@ -9,7 +9,7 @@
                                     bais -23.658016
 
                                 hypothesis
-                        y=sigmoid(weight*input+bais)
+                        y=sigmoid((w-1*i-1+w-2*i-2)+bais)
 
 */
 
