@@ -1,8 +1,8 @@
 
 
 /*
-                                                And Gate neural netwrok 
-                                                compile it with gcc and_gate.c -o and-gate -lm
+                                 And Gate neural netwrok 
+                      compile it with gcc and_gate.c -o and-gate -lm
 */
 
 #include <stdio.h>
@@ -23,7 +23,7 @@ typedef struct para {
 float bias_sum = 0, weight1_sum = 0, weight2_sum = 0;
 float rand_float() { return (float)rand() / (float)RAND_MAX; }
 
-// void perceptron(para *parameter) {}
+
 
 float sigmoid(float x) { return 1.0 / (1.0 + exp(-x)); }
 
@@ -36,13 +36,7 @@ int main() {
   parameter->weight_1 = rand_float() * 10.0f;
   parameter->weight_2 = rand_float() * 10.0f;
   parameter->learn_rate = 1e-1;
-  /* large the learning rate like 1e-2 = 10^-2 = 0.01 ; 1e-3=10^-3= 0.001
-   * Change weght by large amount
-   * since largere will be the cost*l_rate vaule
-#include <math.h>
-   * small learning rate change weight by very small amount
-   * like 1e-5 = 0.0005 very small chnage in weight
-   */
+ 
   printf("\n sno.\texpected\tpredicted\t weight\t weight_gradient\t");
   float weight_gradient_1 = 0;
   float weight_gradient_2 = 0;
@@ -74,11 +68,19 @@ int main() {
   }
 
   float x1 = 0, x2 = 0;
+    int ch=1;
+  while (ch!=0) {
+
+
   printf("\n Enter two  number");
   scanf("%f %f", &x1, &x2);
   printf("\n %f is answer",
          sigmoid((x1 * parameter->weight_1) + (x2 * parameter->weight_2) +
                  parameter->bias));
 
+  printf("\n\nDo u want to exit? 0 for yes and 1 for no\t\n");
+  scanf("%d",&ch);
+
+}
   return 0;
 }
